@@ -1,25 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Tickets from './components/Tickets';
+import CreateTicketForm from './components/CreateTicketForm';
 
-function App() {
+
+const App = () => {
+  const [isCreating, setIsCreating] = useState(false);
+
+  const handleSave = (newTicket) => {
+    // Save ticket to the backend
+    fetch('/api/tickets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTicket),
+    }).then(() => {
+      setIsCreating(false);
+      // Optionally, refetch the tickets list or update the state
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Tickets />
+      <button onClick={() => setIsCreating(true)}>Create Ticket</button>
+      {isCreating && <CreateTicketForm onSave={handleSave} />}
     </div>
   );
-}
+};
+
 
 export default App;

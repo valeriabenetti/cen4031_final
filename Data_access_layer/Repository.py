@@ -1,6 +1,5 @@
-from ticketing import Ticketing
-
-from Data_access_layer.DAticketmodel import TicketDB as TicketModel
+from .DAticketmodel import TicketDB
+from migrations.ticketing import Ticketing
 
 class TicketRepo:
 
@@ -8,24 +7,38 @@ class TicketRepo:
         self.session = session
 
     def get(self, **filters):
-        pass
+        ticket = self.session.query(TicketDB).filter_by(**filters).first()
+        if ticket:
+            return Ticketing(
+                date=ticket.date,
+                firstname=ticket.firstname,
+                lastname=ticket.lastname,
+                description=ticket.description
+            )
+        return None
 
     def list(self):
         return [
-            tickets.dict() for tickets in self.query(TicketModel).all()
+            Ticketing(
+                date=ticket.date,
+                firstname=ticket.firstname,
+                lastname=ticket.lastname,
+                description=ticket.description
+            ) for ticket in self.session.query(TicketDB).all()
         ]
+
     def add(self, date, firstname, lastname, description):
-        ticketing = TicketModel(
-            date = date
-            firstname = firstname
-            lastname = lastname
-            description = description
+        ticket = TicketDB(
+            date=date,
+            firstname=firstname,
+            lastname=lastname,
+            description=description
         )
-        self.session.add(ticketing)
-        return Ticketing(date=ticketing.date, firstname=ticketing.firstname, lastname=ticketing.lastname, description=tickering.description)
-
-    def update(self, **kwargs):
-        pass
-
-    def delete(self, **kwargs):
-        pass
+        self.session.add(ticket)
+        self.session.flush()
+        return Ticketing(
+            date=ticket.date,
+            firstname=ticket.firstname,
+            lastname=ticket.lastname,
+            description=ticket.description
+        )

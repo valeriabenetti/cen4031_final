@@ -1,46 +1,35 @@
 from datetime import datetime
-
-from sqlalchemy import Column, Integer, DateTime
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base
 
-
-Base - declarative_base()
+Base = declarative_base()
 
 class TicketDB(Base):
-
+    
     __tablename__ = "tickets"
 
-    date = Column("date", Integer, primary_key=True)
-    firstname = Column("firstname", String)
-    lastname = Column("lastname", String)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    date = Column(DateTime, nullable=False, default=datetime.utcnow)
+    firstname = Column(String, nullable=False)
+    lastname = Column(String, nullable=False)
+    description = Column(String, nullable=False)
     created = Column(DateTime, nullable=False, default=datetime.utcnow)
-    description = Column("description", String)
+
+    def __init__(self, firstname, lastname, description, date=None):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.description = description
+        self.date = date or datetime.timezone.utc()
 
     def dict(self):
         return {
+            "id": self.id,
             "date": self.date,
             "firstname": self.firstname,
             "lastname": self.lastname,
-            "created": self.created,
             "description": self.description,
+            "created": self.created
         }
 
-#    def __init__(self, firstname, lastname, date, description):
-#
-#        self.firstname = firstname
-#        self.lastname = lastname
-#        self.date = date
-#        self.description = description
-#
-#    def __repr__(self):
-#        return f"{self.firstname} {self.lastname} ({self.date}) {self.description}"
-#
-#engine = create_engine("sqlite:///myhelpdesktickets.db", echo=True)
-#Base.metadata.create_all(bind=engine)
-#
-#Session = sessionmaker(bind=engine)
-#session = Session()
-#
-#ticket = Tickets()
-#session.add(ticket)
-#session.commit()
+    def __repr__(self):
+        return f"<Ticket(id={self.id}, firstname='{self.firstname}', lastname='{self.lastname}', date='{self.date}')>"

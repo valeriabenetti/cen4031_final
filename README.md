@@ -1,64 +1,83 @@
-# TitanHelp Application
+# Help Desk Ticket System
 
-The TitanHelp application is a help desk ticket management system that allows users to create and view help desk tickets. This project is a part of the final project for the CEN4031 course and demonstrates the use of a full-stack application with a React frontend and a REST API backend.
+This is a Help Desk Ticket System application built with FastAPI for the backend and React for the frontend.
 
-## Table of Contents
+## Prerequisites
 
-1. [Project Overview](#project-overview)
-2. [Technologies Used](#technologies-used)
-3. [Features](#features)
-4. [Installation](#installation)
-5. [Running the Application](#running-the-application)
-6. [API Endpoints](#api-endpoints)
-7. [Contributors](#contributors)
-
-## Project Overview
-
-The TitanHelp application allows users to:
-
-- View a list of all help desk tickets.
-- Create new help desk tickets by providing a name, date, and problem description.
-- Display help desk tickets dynamically in a React frontend.
-- Store and retrieve tickets using a RESTful API.
-
-## Technologies Used
-
-### Frontend
-- [React](https://reactjs.org/)
-- JavaScript (ES6+)
-- CSS (for styling)
-
-### Backend
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [Body-parser](https://www.npmjs.com/package/body-parser)
-- [Cors](https://www.npmjs.com/package/cors)
-
-### Tools
-- [Git](https://git-scm.com/) (for version control)
-- [npm](https://www.npmjs.com/) (for package management)
-- [GitHub](https://github.com/) (repository hosting)
-
-## Features
-
-- **Create Ticket**: Users can add new help desk tickets by submitting a form.
-- **View Tickets**: All existing tickets are displayed in a list.
-- **REST API**: The backend provides a RESTful API to fetch and store ticket data.
+- Python 3.7+
+- Node.js and npm
 
 ## Installation
 
-### Prerequisites
+### Backend Setup
 
-Ensure you have the following installed on your system:
-
-- **Node.js** (v12 or higher) - [Install Node.js](https://nodejs.org/)
-- **npm** (v6 or higher) - Comes bundled with Node.js
-- **Git** (for cloning the project) - [Install Git](https://git-scm.com/)
-
-### Clone the Repository
-
-Start by cloning the project from GitHub:
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/cen4031_final.git
-cd cen4031_final
+git clone https://github.com/valeriabenetti/cen4031_final.git cd cen4031_final
+```
+
+2. Create a virtual environment and activate it:
+
+```bash
+python -m venv venv source venv/bin/activate # on Windows use venv\Scripts\activate
+```
+
+3. Install the required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install the required npm packages:
+```bash
+npm install
+```
+
+## Running the Application
+
+### Start the Backend Server
+
+1. From the main project directory, run:
+```bash
+uvicorn main:app --reload
+```
+The backend server will start and be accessible at `http://localhost:8000`.
+
+### Start the Frontend Development Server
+
+1. In a new terminal, navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Start the React development server:
+```bash
+npm start
+```
+The frontend will be accessible at `http://localhost:3000`.
+
+## Using the Application
+
+1. Open your web browser and go to `http://localhost:3000`.
+2. You should now see the Help Desk Ticket System interface.
+3. You can create, view, and manage tickets through this interface.
+
+## API Documentation
+
+- The FastAPI automatic interactive API documentation is available at `http://localhost:8000/docs`.
+
+## Troubleshooting
+
+If you encounter any issues:
+1. Ensure all dependencies are correctly installed.
+2. Check that both the backend and frontend servers are running.
+3. Review the console output for any error messages.
+
+For more detailed information or if you encounter persistent issues, please refer to the project documentation or open an issue on the GitHub repository.
